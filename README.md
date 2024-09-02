@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tiptap and Next.js integration
 
-## Getting Started
+This is an example implementation of _Tiptap Rich_ text editor with **Next.js** and **Tailwind**. You could use it as a starter boilerplate for your text based projects.
 
-First, run the development server:
+In it’s simplest form, it’s enough to add Starterkit extension which enables many rich text editor features such as bold, bulletlist. etc
+
+---
+
+Steps to install are below, see documents for more detail
+
+https://tiptap.dev/docs/editor/getting-started/install/nextjs
+
+Install Next.js and Tiptap Packages.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# create a project
+npx create-next-app my-tiptap-project
+
+# change directory
+cd my-tiptap-project
+
+# install dependencies
+npm install @tiptap/react @tiptap/pm @tiptap/starter-kit
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create the Tiptap editor component
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```jsx
+"use client";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+const Tiptap = () => {
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello World! 🌎️</p>",
+  });
 
-## Learn More
+  return <EditorContent editor={editor} />;
+};
 
-To learn more about Next.js, take a look at the following resources:
+export default Tiptap;
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Integrate it to your app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```jsx
+import Tiptap from "../components/Tiptap";
 
-## Deploy on Vercel
+export default function Home() {
+  return <Tiptap />;
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Here are some extras I added to Starterkit,
+
+1. I added the Link extension to show how to enable features which are not available in the Starterkit packet. You need to install extensions first, like below
+
+   `npm install @tiptap/extension-link`
+
+2. I added the Global Drag Handle package, which is a community extension, to be able to drag and drop nodes in your editor in a similar fashion to Notion ;) Check the repo for installation details. Kudos and thanks to the contributors
+   - [_https://github.com/NiclasDev63/tiptap-extension-global-drag-handle_](https://github.com/NiclasDev63/tiptap-extension-global-drag-handle*)
+3. You could see that a Bubble Menu pops up when you select a piece of text in the editor, check documentation for more menu options. Basically a fixed menu or bubble menu or floating menu, they all work with the same children button elements.
+
+   https://tiptap.dev/docs/editor/core-concepts/extensions
+
+4. You could find “is-active”, “not-active” and “drag-handle” classes in the global.css file inside your `app/` root folder.
+5. To reach the content of the rendered content in the editor, you could use .getHtml() or .getJSON() methods on editor object.
+
+```jsx
+const content = editor.getHtml();
+```
