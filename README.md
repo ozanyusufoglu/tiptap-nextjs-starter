@@ -55,21 +55,23 @@ export default function Home() {
 
 ---
 
-Here are some extras I added to Starterkit,
+Here are some extras for more options,
 
-1. I added the Link extension to show how to enable features which are not available in the Starterkit packet. You need to install extensions first, like below
+- The Link is not available in the Starterkit packet. You need to install the extensions first then import into Tiptap component. Just follow the same pattern for other official extensions.
 
-   `npm install @tiptap/extension-link`
+  `npm install @tiptap/extension-link`
 
-2. I added the Global Drag Handle package, which is a community extension, to be able to drag and drop nodes in your editor in a similar fashion to Notion ;) Check the repo for installation details. Kudos and thanks to the contributors
-   - [_https://github.com/NiclasDev63/tiptap-extension-global-drag-handle_](https://github.com/NiclasDev63/tiptap-extension-global-drag-handle*)
-3. You could see that a Bubble Menu pops up when you select a piece of text in the editor, check documentation for more menu options. Basically a fixed menu or bubble menu or floating menu, they all work with the same children button elements.
+- To be able to drag and drop nodes in your editor in a similar fashion to Notion you need Drag extension, which is paid. But you are not limited to official extensions, I added Global Drag Handle, which is a community extension to make it possible. Check the repo for installation details:
 
-   https://tiptap.dev/docs/editor/core-concepts/extensions
+  - [_https://github.com/NiclasDev63/tiptap-extension-global-drag-handle_](https://github.com/NiclasDev63/tiptap-extension-global-drag-handle*)
 
-4. You could find “is-active”, “not-active” and “drag-handle” classes in the global.css file inside your `app/` root folder.
-5. To reach the content of the rendered content in the editor, you could use .getHtml() or .getJSON() methods on editor object.
+- You could see that a Bubble Menu pops up when you select a piece of text and there are a few menu options more. Basically a fixed menu, bubble menu or floating menu, they all work with the same children button elements, you just change the parent element.
+  https://tiptap.dev/docs/editor/core-concepts/extensions
+- You could find “is-active”, “not-active” and “drag-handle” classes in the global.css file inside your `app/` root folder.
+- To reach the content of the rendered content in the editor, you could use `.getHTML()` or `.getJSON()` methods on editor object.
 
 ```jsx
-const content = editor.getHtml();
+const content = editor.getHTML();
+or;
+const content = editor.getJSON();
 ```
